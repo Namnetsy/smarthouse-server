@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        
+		<RollingFile
+			name="rollingFile"
+			fileName="application.log"
+			filePattern="application.%i.log.gz"
+			ignoreExceptions="false">
+			
+			<JsonLayout complete="true" compact="false"/>
+			
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.gmail.roma.teodorovich.server" level="debug" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        
+        <Root level="debug">
+            <AppenderRef ref="rollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
